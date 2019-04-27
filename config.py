@@ -5,6 +5,8 @@ class Config:
     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://antavio:blogs@localhost/blogs'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
+    UPLOADED_PHOTOS_DEST ='app/static/photos'
+
 class DevConfig(Config):
     DEBUG = True
 
