@@ -1,11 +1,12 @@
-{% macro displayBlog(my_blog_list) %}
+{% macro displayBlogs(my_blog_list) %}
     {% for blogs in my_blog_list %}
     <div class="card">
             <div class="card-body">
-              <h4 class="card-title">{{blogs.blog_title}}</h4>
-              <p class="card-text">{{blogs.blog_content| truncate(100)}}</p>
-              <p>Posted By: <strong>{{blog.user.username}}</strong></p>
-              <a href="/blog/{{blog.id}}" class="card-link btn btn-success">Full Blog</a>
+              <h4 class="card-title">{{blogs.title}}</h4>
+              <p class="card-text">{{blogs.content| truncate(100)}}</p>
+              <p>Posted By: <strong>{{blogs.user.username}}</strong></p>
+              <p>Date posted {{blogs.posted.strftime('%Y-%m-%d')}}</p>
+              <a href="/blog/{{blogs.id}}" class="card-link btn btn-success">Full Blog</a>
             </div>
           </div>
     {% endfor %}

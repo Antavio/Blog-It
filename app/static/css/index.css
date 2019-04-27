@@ -106,8 +106,6 @@
   
   .profile_pic img{
     border-radius: 40px;
-    width: 100%;
-    height: auto;
   }
 .display{
   margin: 10px;
@@ -115,4 +113,11 @@
 
 .btn{
   border-radius: 25px;
+}
+.jumbotron h2{
+  font-family: 'Special Elite', cursive;
+  font-size: 50px;
+}
+.jumbotron {
+  padding: 15px;
 }
