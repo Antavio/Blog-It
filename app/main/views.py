@@ -121,12 +121,12 @@ def blog(id):
         name = comment_form.name.data
         comment = comment_form.comment.data
 
-        new_comment = Comment(name = name, comment = comment, blogit = blog, user = current_user)
+        new_comment = Comment(name = name, comment = comment, blogit = blog)
         new_comment.save_comment()
+
+        return redirect(url_for('main.blog',id=id))
     
     comments = Comment.get_comments(blog)
-
-
     return render_template('full_blog.html', blog = blog, comment_form = comment_form, comments = comments, date = posted_date)
 
 @main.route('/blog/<int:id>/update', methods = ['GET','POST'])
@@ -152,5 +152,19 @@ def delete_blog(id):
     blog = Blog.get_blog(id)
     db.session.delete(blog)
     db.session.commit()
+
+    return redirect(url_for('main.index'))
     
     return render_template('full_blog.html', id=id, blog = blog)
+
+@main.route('/blog/comment/delete/<int:id>', methods = ['GET', 'POST'])
+@login_required
+def delete_comment(id):
+    comment = Comment.query.filter_by(id=id).first()
+    blog_id = comment.blog
+    Comment.delete_comment(id)
+
+    return redirect(url_for('main.blog',id=blog_id))
+
+
+
