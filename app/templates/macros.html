@@ -11,3 +11,15 @@
           </div>
     {% endfor %}
 {% endmacro%}
+
+{% macro displayComments(my_comments) %}
+   {% for comments in my_comments %}
+   <div class="card border-dark comment" style="min-width: 20rem;max-width: 20rem;">
+      <div class="card-header">Comments</div>
+      <div class="card-body text-dark">
+        <h5 class="card-title">{{comments.name}}</h5>
+        <p class="card-text">{{comments.comment}}</p>
+      </div>
+    </div>
+   {% endfor %}
+{% endmacro %}

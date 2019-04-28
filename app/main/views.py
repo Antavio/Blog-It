@@ -1,8 +1,8 @@
 from flask import render_template,redirect,url_for,request,abort,flash
 from . import main
-from .forms import UpdateProfile,BlogForm
+from .forms import UpdateProfile,BlogForm,CommentForm
 from .. import db,photos
-from ..models import User,Blog
+from ..models import User,Blog,Comment
 from flask_login import login_required,current_user
 from .. import db,photos
 
@@ -115,7 +115,19 @@ def blog(id):
     blog = Blog.get_blog(id)
     posted_date = blog.posted.strftime('%b %d, %Y')
 
-    return render_template('full_blog.html', blog = blog,date = posted_date)
+    comment_form = CommentForm()
+    if comment_form.validate_on_submit():
+
+        name = comment_form.name.data
+        comment = comment_form.comment.data
+
+        new_comment = Comment(name = name, comment = comment, blogit = blog, user = current_user)
+        new_comment.save_comment()
+    
+    comments = Comment.get_comments(blog)
+
+
+    return render_template('full_blog.html', blog = blog, comment_form = comment_form, comments = comments, date = posted_date)
 
 @main.route('/blog/<int:id>/update', methods = ['GET','POST'])
 @login_required

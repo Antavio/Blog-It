@@ -56,7 +56,7 @@ class Blog(db.Model):
     posted = db.Column(db.DateTime,default=datetime.utcnow)
     user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
 
-    comments = db.relationship('Comment',backref =  'blog',lazy = "dynamic")
+    comments = db.relationship('Comment',backref =  'blogit',lazy = "dynamic")
 
     def save_blog(self):
         db.session.add(self)
@@ -91,7 +91,7 @@ class Comment(db.Model):
 
     @classmethod
     def get_comments(cls,blog):
-        comments = Comment.query.filter_by(blog_id = blog).all()
+        comments = Comment.query.filter_by(blogit = blog).all()
         return comments
 
     @classmethod

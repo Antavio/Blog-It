@@ -20,5 +20,20 @@
             Created on <strong>{{date}}</strong> by <strong>{{blog.user.username}}</strong>
         </div>
       </div>    
+    
+
+    <div class="cmm">
+    
+     
+        <h5><strong>Leave Your Comments Below</strong></h5>
+        {{wtf.quick_form(comment_form)}}
+     
+      
+    </div>
+    
+      <div class="row">
+          {{macro.displayComments(comments)}}
+      </div>
     </div>
 {% endblock%}
+
