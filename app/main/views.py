@@ -183,8 +183,6 @@ def subscription():
         db.session.add(new_subscriber)
         db.session.commit()
 
-        return redirect(url_for('main.index'))
-        
-    flash('Subscription Successful')
+        return redirect(url_for('main.index'))    
 
     return render_template('subscription.html',subscription_form = subscription_form)
