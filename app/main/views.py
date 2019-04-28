@@ -167,4 +167,8 @@ def delete_comment(id):
     return redirect(url_for('main.blog',id=blog_id))
 
 
+@main.route('/blogs/latest', methods = ['GET','POST'])
+def latest_blogs():
+    blogs = Blog.query.order_by(Blog.posted.desc()).all()
 
+    return render_template('latest.html',blogs = blogs)
