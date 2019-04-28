@@ -138,3 +138,9 @@
 .spacing h4{
   font-family: 'Gugi', cursive;
 }
+.subscribe{
+margin-top: 20px;
+}
+.subscribe h4,h2{
+  font-family: 'Righteous', cursive;
+}

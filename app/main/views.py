@@ -1,8 +1,8 @@
 from flask import render_template,redirect,url_for,request,abort,flash
 from . import main
-from .forms import UpdateProfile,BlogForm,CommentForm
+from .forms import UpdateProfile,BlogForm,CommentForm,SubscribeForm
 from .. import db,photos
-from ..models import User,Blog,Comment
+from ..models import User,Blog,Comment,Subscriber
 from flask_login import login_required,current_user
 from .. import db,photos
 
@@ -172,3 +172,19 @@ def latest_blogs():
     blogs = Blog.query.order_by(Blog.posted.desc()).all()
 
     return render_template('latest.html',blogs = blogs)
+
+@main.route('/subscription',methods=['GET','POST'])
+def subscription():
+    subscription_form = SubscribeForm()
+
+    if subscription_form.validate_on_submit():
+        new_subscriber = Subscriber(subscriber_name=subscription_form.subscriber_name.data,subscriber_email=subscription_form.subscriber_email.data)
+
+        db.session.add(new_subscriber)
+        db.session.commit()
+
+        return redirect(url_for('main.index'))
+        
+    flash('Subscription Successful')
+
+    return render_template('subscription.html',subscription_form = subscription_form)
