@@ -110,3 +110,35 @@ def politics():
 
     return render_template('politics.html',blogs = blogs)
 
+@main.route('/blog/<int:id>', methods = ["GET","POST"])
+def blog(id):
+    blog = Blog.get_blog(id)
+    posted_date = blog.posted.strftime('%b %d, %Y')
+
+    return render_template('full_blog.html', blog = blog,date = posted_date)
+
+@main.route('/blog/<int:id>/update', methods = ['GET','POST'])
+@login_required
+def update_blog(id):
+    blog = Blog.get_blog(id)
+    form = BlogForm()
+    if form.validate_on_submit():
+        blog.title = form.title.data
+        blog.content = form.blog_body.data
+        blog.category = form.blog_category.data
+        db.session.commit()
+        return redirect(url_for('main.blog', id = id))
+    elif request.method == 'GET':
+        form.title.data = blog.title
+        form.blog_body.data = blog.content
+        form.blog_category.data = blog.category
+    return render_template('new_blog.html', blog_form = form, id=id)
+
+@main.route('/blog/delete/<int:id>', methods = ['GET', 'POST'])
+@login_required
+def delete_blog(id):
+    blog = Blog.get_blog(id)
+    db.session.delete(blog)
+    db.session.commit()
+    
+    return render_template('full_blog.html', id=id, blog = blog)

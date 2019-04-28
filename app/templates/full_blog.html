@@ -1,0 +1,24 @@
+{% extends 'base.html'%}
+{% import 'macros.html' as macro%}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block content%}
+<div class="container-fluid">
+<div class="card text-center" style="max-width: 95rem;">
+        <div class="card-header">
+          <h3>Full Blog Post</h3>
+        </div>
+        <div class="card-body">
+          <h4>{{blog.title}}</h4>
+          <p>{{blog.content}}</p>
+          {% if current_user.is_authenticated %}
+          <a href="{{url_for('main.update_blog',id=blog.id)}}" class="btn btn-primary">Update Blog</a>
+          <a href="{{url_for('main.delete_blog',id=blog.id)}}" class="btn btn-danger">Delete Blog</a>
+          {% endif %}
+        </div>
+        <div class="card-footer text-muted">
+            Created on <strong>{{date}}</strong> by <strong>{{blog.user.username}}</strong>
+        </div>
+      </div>    
+    </div>
+{% endblock%}

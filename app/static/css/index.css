@@ -110,7 +110,12 @@
 .display{
   margin: 10px;
 }
-
+.display h4{
+  font-family: 'Gugi', cursive;
+}
+.display h5{
+  font-family: 'Righteous', cursive;
+}
 .btn{
   border-radius: 25px;
 }
