@@ -5,9 +5,13 @@ from .. import db,photos
 from ..models import User,Blog,Comment,Subscriber
 from flask_login import login_required,current_user
 from .. import db,photos
+import requests
+import json
 
 @main.route('/')
 def index():
+    random = requests.get('http://quotes.stormconsultancy.co.uk/random.json').json()
+
     sports = Blog.get_blogs('Sports-Blog')
     travel = Blog.get_blogs('Travel-Blog')
     fitness = Blog.get_blogs('Fitness-Blog')
@@ -15,7 +19,7 @@ def index():
     food = Blog.get_blogs('Food-Blog')
     politics = Blog.get_blogs('Political-Blog')
 
-    return render_template('index.html', sports = sports, travel = travel, fitness = fitness, fashion = fashion, food = food)
+    return render_template('index.html', sports = sports, travel = travel, fitness = fitness, fashion = fashion, food = food, random = random)
 
 @main.route('/user/<uname>')
 def profile(uname):
@@ -153,6 +157,7 @@ def delete_blog(id):
     db.session.delete(blog)
     db.session.commit()
 
+    flash('Blog has been deleted')
     return redirect(url_for('main.index'))
     
     return render_template('full_blog.html', id=id, blog = blog)
@@ -164,6 +169,7 @@ def delete_comment(id):
     blog_id = comment.blog
     Comment.delete_comment(id)
 
+    flash('Comment has been deleted')
     return redirect(url_for('main.blog',id=blog_id))
 
 

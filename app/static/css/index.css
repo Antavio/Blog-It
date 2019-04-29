@@ -144,3 +144,7 @@ margin-top: 20px;
 .subscribe h4,h2{
   font-family: 'Righteous', cursive;
 }
+.quotes h4,p{
+  font-family: 'Yanone Kaffeesatz', sans-serif;
+  font-size: 23px;
+}
